@@ -1,94 +1,84 @@
-Stock Price Prediction using LSTM and Artificial Rabbit Optimization (ARO)
-1. Project Overview
-Ye project stock prices predict karta hai using deep learning technique Long Short-Term Memory (LSTM) neural network. Hyperparameters ko optimize karne ke liye Artificial Rabbit Optimization (ARO) algorithm use kiya gaya hai. Is project mein ek user-friendly graphical interface (GUI) Streamlit ke zariye banaya gaya hai jisme user apni CSV file upload karke apne stock data ka prediction dekh sakta hai.
+# Stock Price Prediction using LSTM and Artificial Rabbit Optimization (ARO)
 
-2. Project Features
-Data Preprocessing: Stock data ko clean aur scale karta hai taki model acche se train ho sake.
+## 1. Project Overview
+This project predicts stock prices using the deep learning technique Long Short-Term Memory (LSTM) neural network. To optimize the hyperparameters, the Artificial Rabbit Optimization (ARO) algorithm is utilized. A user-friendly graphical interface (GUI) is built using Streamlit, where users can upload their CSV file and view the stock data predictions.
 
-LSTM Model: Time series data ke liye specially designed neural network.
+## 2. Project Features
+- **Data Preprocessing**: Cleans and scales stock data to ensure proper model training.
+- **LSTM Model**: A specialized neural network designed for time series data.
+- **Artificial Rabbit Optimization**: A novel nature-inspired algorithm for hyperparameter tuning.
+- **Streamlit GUI**: An interactive interface where users can upload a file and get real-time results.
+- **Evaluation Metrics**: Uses MAE, MSE, and RMSE to measure model performance.
+- **Visualization**: Plots graphs comparing actual and predicted stock prices.
 
-Artificial Rabbit Optimization: Hyperparameter tuning ke liye ek naya nature-inspired algorithm.
+## 3. Project Structure
+| Folder/File | Description |
+|---|---|
+| `app.py` | Main script for the Streamlit GUI application |
+| `data/` | Sample stock CSV files |
+| `models/lstm_model.py` | LSTM neural network code |
+| `optimization/aro_optimizer.py` | Artificial Rabbit Optimization algorithm |
+| `utils/preprocessing.py` | Data cleaning and scaling functions |
+| `utils/metrics.py` | Performance metrics calculation |
+| `utils/plot.py` | Functions for generating plots |
+| `requirements.txt` | List of required Python packages |
+| `README.md` | Project documentation file |
 
-Streamlit GUI: Interactive interface jahan user file upload karke real-time result le sakta hai.
+## 4. Installation Guide
+Install Python 3.7 or a newer version.
 
-Evaluation Metrics: Model ki performance measure karne ke liye MAE, MSE, RMSE use hote hain.
+Create a virtual environment (optional, but recommended):
 
-Visualization: Actual aur predicted stock prices ka graph plot hota hai.
-
-3. Project Structure
-Folder/File	Description
-app.py	Streamlit GUI application ka main script
-data/	Sample stock CSV files
-models/lstm_model.py	LSTM neural network ka code
-optimization/aro_optimizer.py	Artificial Rabbit Optimization algorithm
-utils/preprocessing.py	Data cleaning aur scaling functions
-utils/metrics.py	Performance metrics calculation
-utils/plot.py	Plot banane ke liye functions
-requirements.txt	Python packages ki list
-README.md	Project ka documentation file
-
-4. Installation Guide
-Python 3.7 ya uske upar version install karein.
-
-Virtual environment banayen (optional, recommended):
-
-bash
-Copy
-Edit
+```bash
 python -m venv venv
 source venv/bin/activate   # Linux/Mac
 venv\Scripts\activate      # Windows
-Required packages install karein:
+```
 
-bash
-Copy
-Edit
+Install the required packages:
+
+```bash
 pip install -r requirements.txt
-5. How to Run
-Terminal/Command prompt open karein aur project folder mein jayein.
+```
 
-Streamlit app chalayein:
+## 5. How to Run
+Open your terminal/command prompt and navigate to the project folder.
 
-bash
-Copy
-Edit
+Run the Streamlit app:
+
+```bash
 streamlit run app.py
-Web browser mein Streamlit app open ho jayega.
+```
+The Streamlit app will open in your web browser.
 
-Apni stock data CSV file upload karein.
+Upload your stock data CSV file.
 
-Model hyperparameter tuning karega, train hoga, aur prediction results screen par show karega.
+The model will perform hyperparameter tuning, train, and display prediction results on the screen. Evaluation metrics and graphs will also be displayed.
 
-Evaluation metrics aur graphs bhi display honge.
+## 6. CSV File Format Requirements
+The CSV file should contain the following columns:
 
-6. CSV File Format Requirements
-CSV file mein columns hone chahiye:
-
-Date (optional)
-
-Close/Last (ya close price ka jo bhi column ho)
-
-Volume, Open, High, Low (optional)
+- `Date` (optional)
+- `Close/Last` (or whatever the closing price column is named)
+- `Volume`, `Open`, `High`, `Low` (optional)
 
 Example format:
 
-Date	Close/Last	Volume	Open	High	Low
-2020-01-02	$296.24	33870100	296.24	300.60	295.19
+| Date | Close/Last | Volume | Open | High | Low |
+|---|---|---|---|---|---|
+| 2020-01-02 | $296.24 | 33870100 | 296.24 | 300.60 | 295.19 |
 
-7. Notes and Tips
-Date column model training ke liye use nahi hota, preprocessing mein ignore ho jata hai.
+## 7. Notes and Tips
+- The Date column is not used for model training and is ignored during preprocessing.
+- The code automatically handles the presence of '$' signs or commas within the Close price column.
+- Hyperparameter tuning is set to 5 iterations by default — more iterations will improve accuracy but will also increase processing time.
+- You can customize the LSTM model and ARO parameters in `models/lstm_model.py` and `optimization/aro_optimizer.py`.
 
-Close price column ke andar agar $ ya comma ho to wo code handle karta hai.
+## 8. Contribution
+You can fork this project to improve it. Feel free to report issues or submit pull requests.
 
-Hyperparameter tuning default 5 iterations ke liye set hai — zyada iterations se accuracy badhegi magar processing time bhi badhega.
-
-Aap LSTM model aur ARO parameters customize kar sakte hain models/lstm_model.py aur optimization/aro_optimizer.py mein.
-
-8. Contribution
-Aap is project ko fork karke improve kar sakte hain. Issues report karein ya pull requests bhejein.
-
-9. License
+## 9. License
 MIT License (c) 2025 [Your Name]
 
-10. Contact Information
+## 10. Contact Information
 Email: your.email@example.com

@@ -10,18 +10,72 @@ import numpy as np
 # Set page configuration for a wider, more dashboard-like layout
 st.set_page_config(page_title="Stock Predictor Pro", page_icon="📈", layout="wide")
 
-# Custom CSS to improve look and feel
+# Custom CSS for Premium Glassmorphism UI
 st.markdown("""
 <style>
-    .reportview-container {
-        background: #0e1117;
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Outfit', sans-serif;
     }
-    .main .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+    
+    /* Main background */
+    .stApp {
+        background: radial-gradient(circle at 15% 50%, #1a1a2e, #16213e, #0f3460);
+        color: #e0e0e0;
     }
+    
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        background: rgba(22, 33, 62, 0.6) !important;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* Headers with gradient text */
     h1 {
-        color: #ff4b4b;
+        background: -webkit-linear-gradient(45deg, #00f2fe, #4facfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800 !important;
+        padding-bottom: 10px;
+    }
+    h2, h3 {
+        background: -webkit-linear-gradient(45deg, #e0e0e0, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 600 !important;
+    }
+    
+    /* Metric Cards Glassmorphism */
+    div[data-testid="metric-container"] {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    div[data-testid="metric-container"]:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px 0 rgba(0, 242, 254, 0.2);
+        border: 1px solid rgba(0, 242, 254, 0.3);
+    }
+    
+    /* Style Metric values */
+    div[data-testid="stMetricValue"] {
+        color: #00f2fe !important;
+        font-weight: 800;
+    }
+    
+    /* Dataframes and Expanders */
+    .streamlit-expanderHeader {
+        background-color: rgba(255,255,255,0.05) !important;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.1);
     }
 </style>
 """, unsafe_allow_html=True)

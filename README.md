@@ -77,8 +77,5 @@ Example format:
 ## 8. Contribution
 You can fork this project to improve it. Feel free to report issues or submit pull requests.
 
-## 9. License
-MIT License (c) 2025 [Your Name]
-
 ## 10. Contact Information
-Email: your.email@example.com
+Email: nailakhani5457@gmail.com

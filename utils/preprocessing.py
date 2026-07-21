@@ -32,3 +32,21 @@ def preprocess_data(df, sequence_length=60):
         y.append(scaled[i])
 
     return np.array(X), np.array(y), scaler
+
+def forecast_future(model, scaler, last_sequence, n_days=30):
+    """
+    Forecasts future stock prices.
+    last_sequence: shape (1, sequence_length, 1) - scaled data
+    """
+    future_preds_scaled = []
+    current_seq = last_sequence.copy()
+    
+    for _ in range(n_days):
+        pred = model.predict(current_seq, verbose=0)
+        future_preds_scaled.append(pred[0, 0])
+        # Slide the window
+        current_seq = np.append(current_seq[:, 1:, :], [[pred[0]]], axis=1)
+        
+    future_preds_scaled = np.array(future_preds_scaled).reshape(-1, 1)
+    future_preds = scaler.inverse_transform(future_preds_scaled)
+    return future_preds

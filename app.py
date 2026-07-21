@@ -1,90 +1,44 @@
 import streamlit as st
 import pandas as pd
-from utils.preprocessing import preprocess_data
+import numpy as np
+import requests
+from streamlit_lottie import st_lottie
+from utils.preprocessing import preprocess_data, forecast_future
 from models.lstm_model import build_lstm_model
 from optimization.aro_optimizer import artificial_rabbit_optimization
 from utils.metrics import evaluate
-from utils.plot import plot_results
-import numpy as np
+from utils.plot import plot_results, plot_candlestick_with_indicators, plot_future_forecast
+
+@st.cache_data
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+@st.cache_data
+def load_and_cache_data(uploaded_file):
+    # Reset file pointer if needed, but st.cache_data handles UploadedFile correctly
+    return pd.read_csv(uploaded_file)
 
 # Set page configuration for a wider, more dashboard-like layout
 st.set_page_config(page_title="Stock Predictor Pro", page_icon="📈", layout="wide")
 
 # Custom CSS for Premium Glassmorphism UI
-st.markdown("""
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
-    
-    html, body, [class*="css"] {
-        font-family: 'Outfit', sans-serif;
-    }
-    
-    /* Main background */
-    .stApp {
-        background: radial-gradient(circle at 15% 50%, #1a1a2e, #16213e, #0f3460);
-        color: #e0e0e0;
-    }
-    
-    /* Sidebar */
-    [data-testid="stSidebar"] {
-        background: rgba(22, 33, 62, 0.6) !important;
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border-right: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    /* Headers with gradient text */
-    h1 {
-        background: -webkit-linear-gradient(45deg, #00f2fe, #4facfe);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 800 !important;
-        padding-bottom: 10px;
-    }
-    h2, h3 {
-        background: -webkit-linear-gradient(45deg, #e0e0e0, #ffffff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 600 !important;
-    }
-    
-    /* Metric Cards Glassmorphism */
-    div[data-testid="metric-container"] {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    div[data-testid="metric-container"]:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 40px 0 rgba(0, 242, 254, 0.2);
-        border: 1px solid rgba(0, 242, 254, 0.3);
-    }
-    
-    /* Style Metric values */
-    div[data-testid="stMetricValue"] {
-        color: #00f2fe !important;
-        font-weight: 800;
-    }
-    
-    /* Dataframes and Expanders */
-    .streamlit-expanderHeader {
-        background-color: rgba(255,255,255,0.05) !important;
-        border-radius: 10px;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-</style>
-""", unsafe_allow_html=True)
+# st.markdown("""
+# <style>
+# ...
+# </style>
+# """, unsafe_allow_html=True)
 
 st.title("📈 Stock Price Prediction with LSTM & ARO")
 st.markdown("Predict future stock prices using a deep learning LSTM model, optimized by Artificial Rabbit Optimization (ARO).")
 
 # Sidebar for controls
 with st.sidebar:
+    lottie_ai = load_lottieurl("https://assets9.lottiefiles.com/packages/lf20_hxart9lz.json")
+    if lottie_ai:
+        st_lottie(lottie_ai, height=150, key="ai_animation")
     st.header("⚙️ Configuration")
     uploaded_file = st.file_uploader("Upload your stock CSV file", type=["csv"])
     st.markdown("---")
@@ -93,7 +47,12 @@ with st.sidebar:
     st.info("Higher iterations may take longer but can find better hyperparameters.")
 
 if uploaded_file:
-    df = pd.read_csv(uploaded_file)
+    df = load_and_cache_data(uploaded_file)
+    
+    st.markdown("---")
+    st.subheader("📊 Interactive Candlestick Chart & Moving Averages")
+    fig_candle = plot_candlestick_with_indicators(df)
+    st.plotly_chart(fig_candle, use_container_width=True)
     
     # Strip spaces from columns and rename Close/Last to Close
     df.columns = [col.strip().replace('Close/Last', 'Close') for col in df.columns]
@@ -164,11 +123,30 @@ if uploaded_file:
     m_col2.metric("Mean Squared Error (MSE)", f"{mse:.4f}")
     m_col3.metric("Root Mean Squared Error (RMSE)", f"{rmse:.4f}")
     
+    # Future Forecasting
     st.markdown("---")
-    st.subheader("📈 Prediction vs Actual Plot")
-    fig = plot_results(y_test, pred)
-    # Since we are using Plotly now, use st.plotly_chart
+    st.subheader("🚀 Future Forecasting (Next 30 Days)")
+    with st.spinner("⏳ Forecasting future stock prices..."):
+        # Formulate last sequence from the entire dataset
+        last_sequence = np.append(X[-1][1:], [y[-1]], axis=0)
+        last_sequence = last_sequence.reshape(1, X_train.shape[1], 1)
+        
+        future_preds = forecast_future(model, scaler, last_sequence, n_days=30)
+    
+    st.subheader("📈 Prediction & Future Forecast Plot")
+    fig = plot_future_forecast(y_test, pred, future_preds)
     st.plotly_chart(fig, use_container_width=True)
+    
+    # Download Button for Future Predictions
+    future_df = pd.DataFrame(future_preds, columns=["Predicted Close Price"])
+    future_df.index = [f"Day {i+1}" for i in range(30)]
+    csv_data = future_df.to_csv().encode('utf-8')
+    st.download_button(
+        label="📥 Download 30-Day Future Predictions (CSV)",
+        data=csv_data,
+        file_name="future_predictions.csv",
+        mime="text/csv"
+    )
 
 else:
     # Landing page state

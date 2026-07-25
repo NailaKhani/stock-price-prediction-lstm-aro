@@ -12,6 +12,8 @@ from models.lstm_model import build_lstm_model
 from optimization.aro_optimizer import artificial_rabbit_optimization
 from utils.metrics import evaluate
 import utils.plot
+import importlib
+importlib.reload(utils.plot)
 from utils.plot import plot_results, plot_candlestick_with_indicators, plot_future_forecast, plot_normalized_comparison, plot_correlation_heatmap
 
 st.set_page_config(page_title="Stock Predictor Pro", layout="wide")

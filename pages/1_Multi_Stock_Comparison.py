@@ -88,7 +88,7 @@ else:
                 X, y, scaler = preprocess_data(df_close)
                 
                 # Fast LSTM (small units, fewer epochs)
-                model = build_lstm_model(X.shape[1:], units=32, dropout_rate=0.2)
+                model = build_lstm_model(X.shape[1:], units=32, dropout=0.2)
                 model.fit(X, y, epochs=5, batch_size=32, verbose=0)
                 
                 # Forecast

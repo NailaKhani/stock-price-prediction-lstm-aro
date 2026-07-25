@@ -6,3 +6,4 @@ tensorflow
 plotly
 streamlit-lottie
 requests
+yfinance

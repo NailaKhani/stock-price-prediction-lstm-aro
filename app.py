@@ -158,7 +158,7 @@ if df is not None and not df.empty:
     mae_real, mse_real, rmse_real = evaluate(y_test_real, pred_real)
     
     st.markdown("---")
-    st.subheader("🎯 Evaluation Metrics")
+    st.subheader("Evaluation Metrics")
     m_col1, m_col2, m_col3 = st.columns(3)
     m_col1.metric("Mean Absolute Error (MAE)", f"${mae_real:.2f}")
     m_col2.metric("Mean Squared Error (MSE)", f"${mse_real:.2f}")

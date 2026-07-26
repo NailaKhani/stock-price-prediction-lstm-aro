@@ -1,81 +1,135 @@
-# Stock Price Prediction using LSTM and Artificial Rabbit Optimization (ARO)
+# 📈 Stock Predictor Pro: AI-Powered Price Forecasting & Analysis
 
-## 1. Project Overview
-This project predicts stock prices using the deep learning technique Long Short-Term Memory (LSTM) neural network. To optimize the hyperparameters, the Artificial Rabbit Optimization (ARO) algorithm is utilized. A user-friendly graphical interface (GUI) is built using Streamlit, where users can upload their CSV file and view the stock data predictions.
+<div align="center">
+  <img alt="Stock Predictor Banner" src="./thank_you_1280x720.png" />
+  <br />
+  <br />
+  <h3>
+    <a href="[YouTube Link to be Added]">🎥 Watch the Live Demo</a>
+    <span> | </span>
+    <a href="https://www.linkedin.com/in/naila-bibi-62a2863a7">💼 Connect on LinkedIn</a>
+  </h3>
+</div>
 
-## 2. Project Features
-- **Data Preprocessing**: Cleans and scales stock data to ensure proper model training.
-- **LSTM Model**: A specialized neural network designed for time series data.
-- **Artificial Rabbit Optimization**: A novel nature-inspired algorithm for hyperparameter tuning.
-- **Streamlit GUI**: An interactive interface where users can upload a file and get real-time results.
-- **Evaluation Metrics**: Uses MAE, MSE, and RMSE to measure model performance.
-- **Visualization**: Plots graphs comparing actual and predicted stock prices.
+<p align="center">
+  <strong>A premium, enterprise-grade financial dashboard featuring Deep Learning (LSTM), Artificial Rabbit Optimization (ARO), and Multi-Stock comparative forecasting.</strong>
+</p>
 
-## 3. Project Structure
-| Folder/File | Description |
-|---|---|
-| `app.py` | Main script for the Streamlit GUI application |
-| `data/` | Sample stock CSV files |
-| `models/lstm_model.py` | LSTM neural network code |
-| `optimization/aro_optimizer.py` | Artificial Rabbit Optimization algorithm |
-| `utils/preprocessing.py` | Data cleaning and scaling functions |
-| `utils/metrics.py` | Performance metrics calculation |
-| `utils/plot.py` | Functions for generating plots |
-| `requirements.txt` | List of required Python packages |
-| `README.md` | Project documentation file |
+---
 
-## 4. Installation Guide
-Install Python 3.7 or a newer version.
+## 🚀 Mission Statement
 
-Create a virtual environment (optional, but recommended):
+Stock Predictor Pro is designed to revolutionize how investors and analysts interact with market data. Built with a focus on high-end Bloomberg-style aesthetics, real-time data fetching, and advanced Machine Learning algorithms, it eliminates guesswork, optimizes hyperparameter tuning dynamically, and provides highly accurate future price predictions.
 
-```bash
-python -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    Client["Frontend (Streamlit UI)"]
+    DataAPI["Live Data (YFinance API)"]
+    Model["Deep Learning (Keras/TensorFlow)"]
+    Optimizer["ARO Optimizer (Custom AI)"]
+    CSV["Local CSV Datasets"]
+    
+    Client <-->|"Fetch Real-Time"| DataAPI
+    Client <-->|"Upload Custom"| CSV
+    Client <-->|"User Config"| Optimizer
+    Optimizer <-->|"Hyperparameter Tuning"| Model
+    Model <-->|"Predict Prices"| Client
 ```
 
-Install the required packages:
+---
 
+## ✨ Core Modules & Features
+
+### 📉 1. Advanced Single Stock Analysis
+- **Smart Data Integration:** Instantly fetch live market data using YFinance or upload custom offline CSV datasets.
+- **Interactive Technical Indicators:** Highly responsive charts featuring Candlesticks, 20-day Simple & Exponential Moving Averages (SMA/EMA), RSI, and MACD indicators.
+- **Deep Learning Engine:** Long Short-Term Memory (LSTM) neural network specifically designed for volatile time-series financial data.
+- **Artificial Rabbit Optimization (ARO):** Nature-inspired hyperparameter optimization algorithm that automatically tunes network units, dropout, epochs, and batch sizes to guarantee minimal error margins.
+- **30-Day Future Forecasting:** Predicts the next 30 days of market movement with detailed day-by-day tables, buy/sell signal generation, and a robust 95% Confidence Band.
+
+### 📊 2. Multi-Stock Comparison Engine
+- **Historical Percentage Growth:** Normalized zero-based comparison charts allowing direct performance benchmarking across multiple giant tech stocks simultaneously (e.g., AAPL vs MSFT vs GOOGL).
+- **Stock Correlation Heatmap:** Advanced correlation matrices (1.0 to -1.0) to assist investors in identifying inversely related assets for effective portfolio diversification.
+- **Fast 30-Day Comparative Forecast:** A high-speed, lightweight LSTM processing pipeline that runs predictions across all selected stocks in parallel for quick directional trend spotting.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend UI** | Streamlit, Streamlit-Lottie |
+| **Data Processing** | Pandas, Numpy, Scikit-learn (MinMaxScaler) |
+| **Deep Learning** | TensorFlow / Keras (LSTM) |
+| **Data Visualization** | Plotly (Interactive Graph Objects, Subplots) |
+| **External APIs** | Yahoo Finance (yfinance) |
+
+---
+
+## 📂 Project Structure
+
+```text
+/stock-price-prediction-lstm-aro
+├── app.py                      # Main Streamlit Application & unified routing
+├── /models
+│   └── lstm_model.py           # TensorFlow LSTM Architecture
+├── /optimization
+│   └── aro_optimizer.py        # Artificial Rabbit Optimization Algorithm
+├── /utils
+│   ├── metrics.py              # MAE, MSE, RMSE calculation functions
+│   ├── plot.py                 # Plotly visualization components
+│   └── preprocessing.py        # Data scaling and forecast shaping
+├── /data                       # Sample offline datasets
+├── requirements.txt            # Python dependencies
+└── thank_you_1280x720.png      # Dashboard Banner Image
+```
+
+---
+
+## ⚙️ Installation & Local Setup
+
+### Prerequisites
+- **Python** (v3.9+)
+- **Git** (Version control)
+
+### 1. Clone & Environment Setup
+```bash
+git clone https://github.com/NailaKhani/stock-price-prediction-lstm-aro.git
+cd stock-price-prediction-lstm-aro
+
+# Create and activate virtual environment
+python -m venv venv
+# On Windows: venv\Scripts\activate
+# On Mac/Linux: source venv/bin/activate
+```
+
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## 5. How to Run
-Open your terminal/command prompt and navigate to the project folder.
-
-Run the Streamlit app:
-
+### 3. Launch the Platform
 ```bash
 streamlit run app.py
+# Runs automatically on http://localhost:8501
 ```
-The Streamlit app will open in your web browser.
 
-Upload your stock data CSV file.
+---
 
-The model will perform hyperparameter tuning, train, and display prediction results on the screen. Evaluation metrics and graphs will also be displayed.
+## 🎨 Design Philosophy & UX
 
-## 6. CSV File Format Requirements
-The CSV file should contain the following columns:
+Stock Predictor Pro utilizes an **Enterprise Dashboard** aesthetic designed to look professional out-of-the-box:
+- **Dark Mode Native:** Deep slate/navy foundations (`#16213e`) for visual comfort and high-end feel.
+- **Semantic Accents:** 
+  - 🔵 **Cyan/Blue** for Actual Market Prices and core structural elements.
+  - 🔴 **Red/Pink** for Model Test Predictions.
+  - 🟡 **Amber/Gold** for Future Forecasting and Confidence Bands.
+- **Bloomberg-Terminal Inspired:** Clean typography, grid layouts, and absolute zero reliance on emojis within data presentations.
 
-- `Date` (optional)
-- `Close/Last` (or whatever the closing price column is named)
-- `Volume`, `Open`, `High`, `Low` (optional)
+---
 
-Example format:
-
-| Date | Close/Last | Volume | Open | High | Low |
-|---|---|---|---|---|---|
-| 2020-01-02 | $296.24 | 33870100 | 296.24 | 300.60 | 295.19 |
-
-## 7. Notes and Tips
-- The Date column is not used for model training and is ignored during preprocessing.
-- The code automatically handles the presence of '$' signs or commas within the Close price column.
-- Hyperparameter tuning is set to 5 iterations by default — more iterations will improve accuracy but will also increase processing time.
-- You can customize the LSTM model and ARO parameters in `models/lstm_model.py` and `optimization/aro_optimizer.py`.
-
-## 8. Contribution
-You can fork this project to improve it. Feel free to report issues or submit pull requests.
-
-## 10. Contact Information
-Email: nailakhani5457@gmail.com
+### Contact Information
+- **Email:** nailakhani5457@gmail.com
+- **LinkedIn:** [Naila Bibi](https://www.linkedin.com/in/naila-bibi-62a2863a7)

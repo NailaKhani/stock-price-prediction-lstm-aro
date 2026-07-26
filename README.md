@@ -1,7 +1,7 @@
 # 📈 Stock Predictor Pro: AI-Powered Price Forecasting & Analysis
 
 <div align="center">
-  <img alt="Stock Predictor Banner" src="./thank_you_1280x720.png" />
+  <img alt="Stock Predictor Banner" src="./banner.png" />
   <br />
   <br />
   <h3>
